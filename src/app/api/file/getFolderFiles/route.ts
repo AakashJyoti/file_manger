@@ -13,7 +13,6 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const id = searchParams.get("id");
     const files = await File.find({ parentFolder: id });
-    console.log(files);
     return NextResponse.json({ success: true, data: files }, { status: 200 });
   } catch (error: any) {
     return NextResponse.json(

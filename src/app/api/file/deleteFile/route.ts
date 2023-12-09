@@ -15,10 +15,22 @@ interface IFile extends Document {
   parentFolder?: string | null;
 }
 
-export async function POST(req: NextRequest) {
+const handleDeleteRecursion = async (parentId: string) => {
+  const files = await File.find({ parentFolder: parentId });
+  if (files.length <= 0) return;
+  files.forEach(async (file) => {
+    if (file.fileType === "folder") {
+      handleDeleteRecursion(file._id);
+    }
+    await File.findByIdAndDelete(file._id);
+  });
+};
+
+export async function DELETE(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
     const _id = searchParams.get("id");
+
     const isFileExists: IFile | null = await File.findById(_id);
 
     if (!isFileExists) {
@@ -29,7 +41,7 @@ export async function POST(req: NextRequest) {
     }
 
     if (isFileExists.fileType === "folder") {
-      await File.deleteMany({ parentFolder: _id });
+      handleDeleteRecursion(_id!);
     }
     await File.findByIdAndDelete(_id);
 
