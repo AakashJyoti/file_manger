@@ -5,6 +5,7 @@ import {
 } from "../animations/modal.animation";
 import { Dispatch, SetStateAction } from "react";
 import { FieldValues, useForm } from "react-hook-form";
+import axios from "axios";
 
 type Props = {
   showModal: boolean;
@@ -33,6 +34,7 @@ export default function CreateModal({
         isFolder: isFolder,
         parentFolder: fileId,
       });
+      await axios.post("api/file/createFile", requestPackage);
     } catch (error) {
       console.log(error);
     }
