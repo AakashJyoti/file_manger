@@ -6,10 +6,9 @@ const fileSchema = new mongoose.Schema(
       type: String,
       required: [true, "Please provide a File Name"],
     },
-    fileType: {
-      type: String,
-      required: [true, "Please provide a File Type"],
-      enum: ["file", "folder"],
+    isFolder: {
+      type: Boolean,
+      default: false,
     },
     parentFolder: {
       type: Schema.Types.ObjectId,

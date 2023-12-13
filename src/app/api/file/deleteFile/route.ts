@@ -11,7 +11,7 @@ connect();
 
 interface IFile extends Document {
   fileName: string;
-  fileType: string;
+  isFolder: string;
   parentFolder?: string | null;
 }
 
@@ -19,7 +19,7 @@ const handleDeleteRecursion = async (parentId: string) => {
   const files = await File.find({ parentFolder: parentId });
   if (files.length <= 0) return;
   files.forEach(async (file) => {
-    if (file.fileType === "folder") {
+    if (file.isFolder) {
       handleDeleteRecursion(file._id);
     }
     await File.findByIdAndDelete(file._id);
@@ -40,7 +40,7 @@ export async function DELETE(req: NextRequest) {
       );
     }
 
-    if (isFileExists.fileType === "folder") {
+    if (isFileExists.isFolder) {
       handleDeleteRecursion(_id!);
     }
     await File.findByIdAndDelete(_id);

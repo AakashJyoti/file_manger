@@ -11,8 +11,12 @@ connect();
 export async function POST(req: NextRequest) {
   try {
     const reqBody = await req.json();
-    const { fileName, fileType, parentFolder } = reqBody;
-    const isFileExists = await File.find({ fileName, fileType, parentFolder });
+    const { fileName, isFolder, parentFolder } = reqBody;
+    const isFileExists = await File.find({
+      fileName,
+      isFolder,
+      parentFolder,
+    });
 
     if (isFileExists.length > 0) {
       return NextResponse.json(
@@ -23,11 +27,11 @@ export async function POST(req: NextRequest) {
 
     const newFile = new File({
       fileName,
-      fileType,
+      isFolder,
       parentFolder,
     });
     const savedFile = await newFile.save();
-    
+
     return NextResponse.json(
       { success: true, data: savedFile },
       { status: 200 }

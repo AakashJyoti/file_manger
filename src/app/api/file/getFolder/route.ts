@@ -12,13 +12,8 @@ export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
     const id = searchParams.get("id");
-    if (!id) {
-      const files = await File.find({ parentFolder: null });
-      return NextResponse.json({ success: true, data: files }, { status: 200 });
-    } else {
-      const files = await File.find({ parentFolder: id });
-      return NextResponse.json({ success: true, data: files }, { status: 200 });
-    }
+    const files = await File.findById(id)
+    return NextResponse.json({ success: true, data: files }, { status: 200 });
   } catch (error: any) {
     return NextResponse.json(
       { success: false, error: error.message },

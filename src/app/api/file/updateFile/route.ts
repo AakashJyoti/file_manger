@@ -11,7 +11,7 @@ connect();
 
 interface IFile extends Document {
   fileName: string;
-  fileType: string;
+  isFolder: boolean;
   parentFolder?: string | null;
 }
 
