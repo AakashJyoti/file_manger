@@ -14,12 +14,7 @@ type Props = {
   setShowModal: Dispatch<SetStateAction<boolean>>;
 };
 
-export default function CreateModal({
-  showModal,
-  setShowModal,
-  fileId,
-  isFolder,
-}: Props) {
+const CreateModal = ({ showModal, setShowModal, fileId, isFolder }: Props) => {
   const {
     register,
     handleSubmit,
@@ -79,4 +74,6 @@ export default function CreateModal({
       ) : null}
     </AnimatePresence>
   );
-}
+};
+
+export default CreateModal;

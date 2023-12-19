@@ -12,11 +12,7 @@ type Props = {
   setShowModal: Dispatch<SetStateAction<boolean>>;
 };
 
-export default function DeleteModal({
-  showModal,
-  setShowModal,
-  fileId,
-}: Props) {
+const DeleteModal = ({ showModal, setShowModal, fileId }: Props) => {
   const handleDelete = async () => {
     try {
       await axios.delete(`/api/file/deleteFile?id=${fileId}`);
@@ -53,4 +49,6 @@ export default function DeleteModal({
       ) : null}
     </AnimatePresence>
   );
-}
+};
+
+export default DeleteModal;

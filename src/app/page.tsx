@@ -6,7 +6,7 @@ import Link from "next/link";
 import SubHeader from "@/components/SubHeader";
 import Comp from "@/components/Comp";
 
-export default function Home() {
+const Home = () => {
   const [content, setContent] = useState<TFileData[]>();
 
   useEffect(() => {
@@ -43,4 +43,6 @@ export default function Home() {
       </div>
     </main>
   );
-}
+};
+
+export default Home;

@@ -8,7 +8,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function Folder() {
+const Folder = () => {
   const [content, setContent] = useState<TFileData[]>();
   const [currentFolder, setCurrentFolder] = useState<TFileData>();
 
@@ -57,4 +57,6 @@ export default function Folder() {
       </main>
     </>
   );
-}
+};
+
+export default Folder;

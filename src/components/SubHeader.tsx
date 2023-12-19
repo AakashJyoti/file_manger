@@ -6,10 +6,8 @@ type Props = {
   fileContent?: TFileData;
 };
 
-export default function SubHeader({ fileContent }: Props) {
-  const handleCreateFile = (isFolder: boolean) => {
-    
-  };
+const SubHeader = ({ fileContent }: Props) => {
+  const handleCreateFile = (isFolder: boolean) => {};
 
   return (
     <div className="flex px-4 py-2 justify-between items-center shadow bg-gray-600">
@@ -34,4 +32,6 @@ export default function SubHeader({ fileContent }: Props) {
       </div>
     </div>
   );
-}
+};
+
+export default SubHeader;
