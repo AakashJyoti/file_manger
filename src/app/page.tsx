@@ -21,14 +21,14 @@ const Home = () => {
   }, []);
 
   return (
-    <main className="text-xl w-[1000px] border mx-auto rounded-lg overflow-hidden">
+    <main className="text-xl w-[1000px] border mx-auto rounded-lg overflow-hidden relative">
       <div className="flex justify-center items-center bg-white py-5 shadow-md">
         <p className="text-3xl font-semibold">Your Explorer</p>
       </div>
 
       <SubHeader />
 
-      <div className="min-h-[400px] max-h-[90dvh] overflow-y-auto p-3 flex flex-wrap gap-2">
+      <div className="min-h-[400px] max-h-[90dvh] overflow-y-auto p-3 flex flex-wrap gap-2 bg-white">
         {content?.map((file) => (
           <div key={file._id} className="h-[100%]">
             {file.isFolder ? (

@@ -3,18 +3,16 @@ import {
   modalBackDropVariants,
   modalVariants,
 } from "../animations/modal.animation";
-import { Dispatch, SetStateAction } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import axios from "axios";
 
 type Props = {
-  showModal: boolean;
-  fileId: string;
+  fileId: string | undefined;
   isFolder: boolean;
-  setShowModal: Dispatch<SetStateAction<boolean>>;
+  closeCreateModal: () => void;
 };
 
-const CreateModal = ({ showModal, setShowModal, fileId, isFolder }: Props) => {
+const CreateModal = ({ fileId, isFolder, closeCreateModal }: Props) => {
   const {
     register,
     handleSubmit,
@@ -36,42 +34,41 @@ const CreateModal = ({ showModal, setShowModal, fileId, isFolder }: Props) => {
   };
 
   const handleCancel = () => {
-    setShowModal(false);
+    closeCreateModal();
+    reset();
   };
 
   return (
     <AnimatePresence mode="wait">
-      {showModal ? (
+      <motion.div
+        className="absolute top-0 left-0 w-full h-full z-50 bg-[rgba(0,0,0,0.86)]"
+        variants={modalBackDropVariants}
+        animate="final"
+        initial="initial"
+        exit="exit"
+      >
         <motion.div
-          className="fixed top-0 left-0 w-[100%] h-[100%] z-10 bg-[rgba(0,0,0,0.5)]"
-          variants={modalBackDropVariants}
-          animate="final"
-          initial="initial"
-          exit="exit"
+          className="w-max-[400px] my-0 mx-auto px-[20px] py-[40px] rounded-lg"
+          variants={modalVariants}
         >
-          <motion.div
-            className="w-max-[400px] my-0 mx-auto px-[20px] py-[40px] bg-white rounded-lg"
-            variants={modalVariants}
+          <form
+            onSubmit={handleSubmit(handleFormSubmit)}
+            onReset={handleCancel}
           >
-            <form
-              onSubmit={handleSubmit(handleFormSubmit)}
-              onReset={handleCancel}
-            >
-              <input
-                type="text"
-                placeholder="Folder Name"
-                {...register("name", {
-                  required: "Name field id required",
-                })}
-              />
-              <div>
-                <button type="reset">Cancel</button>
-                <button type="submit">Create</button>
-              </div>
-            </form>
-          </motion.div>
+            <input
+              type="text"
+              placeholder="Folder Name"
+              {...register("name", {
+                required: "Name field id required",
+              })}
+            />
+            <div>
+              <button type="reset">Cancel</button>
+              <button type="submit">Create</button>
+            </div>
+          </form>
         </motion.div>
-      ) : null}
+      </motion.div>
     </AnimatePresence>
   );
 };

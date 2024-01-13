@@ -2,7 +2,6 @@
 
 import Comp from "@/components/Comp";
 import SubHeader from "@/components/SubHeader";
-import DeleteModal from "@/modal/DeleteModal";
 import axios from "axios";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -41,7 +40,7 @@ const Folder = () => {
 
         <SubHeader fileContent={currentFolder} />
 
-        <div className="min-h-[400px] max-h-[90dvh] overflow-y-auto p-3 flex flex-wrap gap-2">
+        <div className="min-h-[400px] max-h-[90dvh] overflow-y-auto p-3 flex flex-wrap gap-2 bg-white">
           {content?.map((file) => (
             <div key={file._id} className="h-[100%]">
               {file.isFolder ? (
