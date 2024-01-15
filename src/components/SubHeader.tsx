@@ -4,6 +4,7 @@ import CreateModal from "@/components/modals/CreateModal";
 import Link from "next/link";
 import { useState } from "react";
 import { FaFolderPlus, FaFileMedical } from "react-icons/fa6";
+import { usePathname } from "next/navigation";
 
 type Props = {
   fileContent?: TFileData;
@@ -13,6 +14,7 @@ type Props = {
 const SubHeader = ({ fileContent, handleToggle }: Props) => {
   const [openCreateModal, setOpenCreateModal] = useState(false);
   const [createFolder, setCreateFolder] = useState(false);
+  const pathName = usePathname();
 
   const handleCreateFile = (isFolder: boolean) => {
     setOpenCreateModal(true);
@@ -25,13 +27,30 @@ const SubHeader = ({ fileContent, handleToggle }: Props) => {
 
   return (
     <>
-      <div className="flex px-4 py-2 justify-between items-center shadow bg-gray-600">
-        {/* <Link href={`/${fileContent?._id}`}> */}
-        <p className="text-2xl font-semibold ml-3 text-white">
+      <div className="grid grid-cols-3 px-4 py-2 shadow bg-gray-600">
+        <div className="flex items-center text-white">
+          {pathName === "/" ? (
+            <div />
+          ) : (
+            <Link
+              href={
+                fileContent?.parentFolder
+                  ? `/${fileContent?.parentFolder}`
+                  : "/"
+              }
+            >
+              <span className="hover:bg-gray-500 px-2 py-0.5 rounded">
+                &larr; Back
+              </span>
+            </Link>
+          )}
+        </div>
+
+        <p className="text-2xl font-semibold text-white text-center">
           {fileContent?.fileName ? fileContent?.fileName : "Home"}
         </p>
-        {/* </Link> */}
-        <div className="flex gap-2">
+
+        <div className="flex gap-2 justify-end">
           <button
             className="bg-white px-2 py-1 rounded flex gap-1 items-center hover:bg-slate-200"
             onClick={() => handleCreateFile(true)}
