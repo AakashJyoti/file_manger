@@ -5,28 +5,32 @@ import axios from "axios";
 import Link from "next/link";
 import SubHeader from "@/components/SubHeader";
 import Comp from "@/components/Comp";
+import Loading from "@/components/Loading";
 
 const Home = () => {
   const [content, setContent] = useState<TFileData[]>();
+  const [isLoading, setIsLoading] = useState(false);
+  const [toggle, setToggle] = useState(false);
 
   useEffect(() => {
     (async () => {
       try {
+        setIsLoading(true);
         const { data } = await axios.get("/api/file/getFolderFiles");
         setContent(data.data);
       } catch (error) {
         console.log(error);
+      } finally {
+        setIsLoading(false);
       }
     })();
-  }, []);
+  }, [toggle]);
+
+  const handleToggle = () => setToggle((prev) => !prev);
 
   return (
-    <main className="text-xl w-[1000px] border mx-auto rounded-lg overflow-hidden relative">
-      <div className="flex justify-center items-center bg-white py-5 shadow-md">
-        <p className="text-3xl font-semibold">Your Explorer</p>
-      </div>
-
-      <SubHeader />
+    <>
+      <SubHeader handleToggle={handleToggle} />
 
       <div className="min-h-[400px] max-h-[90dvh] overflow-y-auto p-3 flex flex-wrap gap-2 bg-white">
         {content?.map((file) => (
@@ -41,7 +45,8 @@ const Home = () => {
           </div>
         ))}
       </div>
-    </main>
+      {isLoading && <Loading />}
+    </>
   );
 };
 

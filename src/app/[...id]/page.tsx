@@ -1,6 +1,7 @@
 "use client";
 
 import Comp from "@/components/Comp";
+import Loading from "@/components/Loading";
 import SubHeader from "@/components/SubHeader";
 import axios from "axios";
 import Link from "next/link";
@@ -10,6 +11,8 @@ import { useEffect, useState } from "react";
 const Folder = () => {
   const [content, setContent] = useState<TFileData[]>();
   const [currentFolder, setCurrentFolder] = useState<TFileData>();
+  const [isLoading, setIsLoading] = useState(true);
+  const [toggle, setToggle] = useState(false);
 
   const params = useParams();
   const id = params.id[0];
@@ -18,6 +21,7 @@ const Folder = () => {
     if (id) {
       (async () => {
         try {
+          setIsLoading(true);
           const allSubData = await axios.get(
             `/api/file/getFolderFiles?id=${id}`
           );
@@ -26,34 +30,34 @@ const Folder = () => {
           setCurrentFolder(currentData.data.data);
         } catch (error) {
           console.log(error);
+        } finally {
+          setIsLoading(false);
         }
       })();
     }
-  }, [id]);
+  }, [id, toggle]);
+
+  const handleToggle = () => setToggle((prev) => !prev);
 
   return (
     <>
-      <main className="text-xl w-[1000px] border mx-auto rounded-lg overflow-hidden">
-        <div className="flex justify-center items-center bg-white py-5 shadow-md">
-          <p className="text-3xl font-semibold">Your Explorer</p>
-        </div>
+      <SubHeader fileContent={currentFolder} handleToggle={handleToggle} />
 
-        <SubHeader fileContent={currentFolder} />
+      <div className="min-h-[400px] max-h-[90dvh] overflow-y-auto p-3 flex flex-wrap gap-2 bg-white">
+        {content?.map((file) => (
+          <div key={file._id} className="h-[100%]">
+            {file.isFolder ? (
+              <Link href={`/${file._id}`}>
+                <Comp fileContent={file} imageLink={"/folder.png"} />
+              </Link>
+            ) : (
+              <Comp fileContent={file} imageLink={"/docs.png"} />
+            )}
+          </div>
+        ))}
+      </div>
 
-        <div className="min-h-[400px] max-h-[90dvh] overflow-y-auto p-3 flex flex-wrap gap-2 bg-white">
-          {content?.map((file) => (
-            <div key={file._id} className="h-[100%]">
-              {file.isFolder ? (
-                <Link href={`/${file._id}`}>
-                  <Comp fileContent={file} imageLink={"/folder.png"} />
-                </Link>
-              ) : (
-                <Comp fileContent={file} imageLink={"/docs.png"} />
-              )}
-            </div>
-          ))}
-        </div>
-      </main>
+      {isLoading && <Loading />}
     </>
   );
 };

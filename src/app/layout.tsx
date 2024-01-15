@@ -1,8 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "File Manager",
@@ -16,7 +13,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} p-10`}>{children}</body>
+      <body>
+        <main className="min-h-screen bg-gray-500 relative pt-10">
+          <div className="w-[1000px] border mx-auto rounded-lg overflow-hidden">
+            <div className="flex justify-center items-center bg-white py-5 shadow-md">
+              <p className="text-3xl font-semibold">Your Explorer</p>
+            </div>
+            {children}
+          </div>
+        </main>
+      </body>
     </html>
   );
 }

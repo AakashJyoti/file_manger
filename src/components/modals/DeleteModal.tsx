@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import {
   modalBackDropVariants,
   modalVariants,
-} from "../animations/modal.animation";
+} from "../../animations/modal.animation";
 import { Dispatch, SetStateAction } from "react";
 import axios from "axios";
 
