@@ -80,6 +80,7 @@ const CreateModal = ({
               type="text"
               className="border py-0.5 px-2 w-full rounded"
               placeholder="Enter folder Name"
+              maxLength={12}
               {...register("name", {
                 required: "Name field id required",
               })}

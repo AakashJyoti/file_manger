@@ -5,11 +5,14 @@ import axios from "axios";
 import SubHeader from "@/components/SubHeader";
 import Comp from "@/components/Comp";
 import Loading from "@/components/Loading";
+import DeleteModal from "@/components/modals/DeleteModal";
 
 const Home = () => {
   const [content, setContent] = useState<TFileData[]>();
   const [isLoading, setIsLoading] = useState(false);
   const [toggle, setToggle] = useState(false);
+  const [selectedComp, setSelectedComp] = useState("");
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -27,6 +30,12 @@ const Home = () => {
 
   const handleToggle = () => setToggle((prev) => !prev);
 
+  const handleSelectComp = (id: string) => setSelectedComp(id);
+
+  const toggleDeleteModal = (val: boolean) => setOpenDeleteModal(val);
+
+  const toggleLoading = (val: boolean) => setIsLoading(val);
+
   return (
     <>
       <SubHeader handleToggle={handleToggle} />
@@ -34,11 +43,24 @@ const Home = () => {
       <div className="min-h-[400px] max-h-[90dvh] overflow-y-auto p-3 flex flex-wrap gap-2 bg-white">
         {content?.map((file) => (
           <div key={file._id} className="h-[100%]">
-            <Comp fileContent={file} />
+            <Comp
+              fileContent={file}
+              handleSelectComp={handleSelectComp}
+              selectedComp={selectedComp}
+              toggleDeleteModal={toggleDeleteModal}
+            />
           </div>
         ))}
       </div>
       {isLoading && <Loading />}
+      {openDeleteModal && (
+        <DeleteModal
+          toggleDeleteModal={toggleDeleteModal}
+          toggleLoading={toggleLoading}
+          fileId={selectedComp}
+          handleToggle={handleToggle}
+        />
+      )}
     </>
   );
 };

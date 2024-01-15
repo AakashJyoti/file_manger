@@ -3,50 +3,69 @@ import {
   modalBackDropVariants,
   modalVariants,
 } from "../../animations/modal.animation";
-import { Dispatch, SetStateAction } from "react";
 import axios from "axios";
 
 type Props = {
-  showModal: boolean;
   fileId: string;
-  setShowModal: Dispatch<SetStateAction<boolean>>;
+  toggleDeleteModal: (val: boolean) => void;
+  toggleLoading: (val: boolean) => void;
+  handleToggle: () => void;
 };
 
-const DeleteModal = ({ showModal, setShowModal, fileId }: Props) => {
+const DeleteModal = ({
+  toggleDeleteModal,
+  fileId,
+  toggleLoading,
+  handleToggle,
+}: Props) => {
   const handleDelete = async () => {
     try {
+      toggleLoading(true);
       await axios.delete(`/api/file/deleteFile?id=${fileId}`);
     } catch (error) {
       console.log(error);
+    } finally {
+      toggleLoading(false);
+      handleToggle();
+      toggleDeleteModal(false);
     }
-  };
-
-  const handleCancel = () => {
-    setShowModal(false);
   };
 
   return (
     <AnimatePresence mode="wait">
-      {showModal ? (
+      <motion.div
+        className="absolute top-0 right-0 w-full h-full z-10 bg-[rgba(0,0,0,0.86)]"
+        variants={modalBackDropVariants}
+        animate="final"
+        initial="initial"
+        exit="exit"
+      >
         <motion.div
-          className="fixed top-0 left-0 w-[100%] h-[100%] z-10 bg-[rgba(0,0,0,0.5)]"
-          variants={modalBackDropVariants}
-          animate="final"
-          initial="initial"
-          exit="exit"
+          className="w-[400px] my-0 mx-auto p-5 rounded-lg bg-white relative"
+          variants={modalVariants}
         >
-          <motion.div
-            className="w-max-[400px] my-0 mx-auto px-[20px] py-[40px] bg-white rounded-lg"
-            variants={modalVariants}
-          >
-            <p>Confirm Deletion</p>
-            <div>
-              <button onClick={handleCancel}>Cancel</button>
-              <button onClick={handleDelete}>Delete</button>
-            </div>
-          </motion.div>
+          <div className="absolute top-5 right-5 z-20  rounded hover:bg-gray-200">
+            <button className="px-2" onClick={() => toggleDeleteModal(false)}>
+              X
+            </button>
+          </div>
+          <p className="text-3xl">Confirm Deletion</p>
+          <div className="flex justify-evenly py-4">
+            <button
+              onClick={() => toggleDeleteModal(false)}
+              className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-500"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={handleDelete}
+              className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-500"
+            >
+              Delete
+            </button>
+          </div>
         </motion.div>
-      ) : null}
+      </motion.div>
     </AnimatePresence>
   );
 };
