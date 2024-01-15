@@ -22,6 +22,7 @@ const CreateModal = ({
   handleToggle,
 }: Props) => {
   const [isLoading, setIsLoading] = useState(false);
+  
   const {
     register,
     handleSubmit,
@@ -78,9 +79,10 @@ const CreateModal = ({
           >
             <input
               type="text"
-              className="border py-0.5 px-2 w-full rounded"
+              className="border py-0.5 px-2 w-full rounded focus:outline-gray-500"
               placeholder="Enter folder Name"
               maxLength={12}
+              autoFocus
               {...register("name", {
                 required: "Name field id required",
               })}

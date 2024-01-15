@@ -32,6 +32,11 @@ const Comp = ({
     handleSelectComp(fileContent._id);
   };
 
+  const handleClick = () => {
+    setShowOption(false);
+    handleSelectComp(fileContent._id);
+  };
+
   return (
     <div
       className={`px-4 py-2 w-[140px] flex justify-center items-center flex-col hover:bg-gray-200 rounded gap-1 cursor-pointer relative active:bg-gray-200 ${
@@ -39,7 +44,7 @@ const Comp = ({
       }`}
       onDoubleClick={handelOpenLink}
       onContextMenu={(e) => handelContextMenu(e)}
-      onClick={() => handleSelectComp(fileContent._id)}
+      onClick={handleClick}
     >
       <Image
         src={fileContent.isFolder ? FolderImg : FileImg}

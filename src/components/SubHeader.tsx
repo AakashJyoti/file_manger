@@ -21,9 +21,7 @@ const SubHeader = ({ fileContent, handleToggle }: Props) => {
     setCreateFolder(isFolder);
   };
 
-  const closeCreateModal = () => {
-    setOpenCreateModal(false);
-  };
+  const closeCreateModal = () => setOpenCreateModal(false);
 
   return (
     <>

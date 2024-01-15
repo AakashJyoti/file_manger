@@ -16,10 +16,6 @@ const Folder = () => {
   const [selectedComp, setSelectedComp] = useState("");
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
-  const handleSelectComp = (id: string) => {
-    setSelectedComp(id);
-  };
-
   const params = useParams();
   const id = params.id[0];
 
@@ -42,6 +38,8 @@ const Folder = () => {
       })();
     }
   }, [id, toggle]);
+
+  const handleSelectComp = (id: string) => setSelectedComp(id);
 
   const handleToggle = () => setToggle((prev) => !prev);
 
