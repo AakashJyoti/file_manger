@@ -42,7 +42,7 @@ const Folder = () => {
     }
   }, [id, toggle]);
 
-  const handleSelectComp = (val: TFileData) => setSelectedComp(val);
+  const handleSelectComp = (val: TFileData | undefined) => setSelectedComp(val);
   const handleCreateFolder = (val: boolean) => setCreateFolder(val);
   const handleToggle = () => setToggle((prev) => !prev);
   const toggleCreateModal = (val: boolean) => setOpenCreateModal(val);

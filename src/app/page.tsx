@@ -33,7 +33,7 @@ const Home = () => {
 
   const handleToggle = () => setToggle((prev) => !prev);
 
-  const handleSelectComp = (val: TFileData) => setSelectedComp(val);
+  const handleSelectComp = (val: TFileData | undefined) => setSelectedComp(val);
   const handleCreateFolder = (val: boolean) => setCreateFolder(val);
   const toggleDeleteModal = (val: boolean) => setOpenDeleteModal(val);
   const toggleCreateModal = (val: boolean) => setOpenCreateModal(val);
