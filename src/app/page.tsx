@@ -6,13 +6,16 @@ import SubHeader from "@/components/SubHeader";
 import Comp from "@/components/Comp";
 import Loading from "@/components/Loading";
 import DeleteModal from "@/components/modals/DeleteModal";
+import CreateModal from "@/components/modals/CreateModal";
 
 const Home = () => {
   const [content, setContent] = useState<TFileData[]>();
-  const [isLoading, setIsLoading] = useState(false);
+  const [selectedComp, setSelectedComp] = useState<TFileData>();
   const [toggle, setToggle] = useState(false);
-  const [selectedComp, setSelectedComp] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [openCreateModal, setOpenCreateModal] = useState(false);
+  const [createFolder, setCreateFolder] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -30,15 +33,19 @@ const Home = () => {
 
   const handleToggle = () => setToggle((prev) => !prev);
 
-  const handleSelectComp = (id: string) => setSelectedComp(id);
-
+  const handleSelectComp = (val: TFileData) => setSelectedComp(val);
+  const handleCreateFolder = (val: boolean) => setCreateFolder(val);
   const toggleDeleteModal = (val: boolean) => setOpenDeleteModal(val);
-
+  const toggleCreateModal = (val: boolean) => setOpenCreateModal(val);
   const toggleLoading = (val: boolean) => setIsLoading(val);
 
   return (
     <>
-      <SubHeader handleToggle={handleToggle} />
+      <SubHeader
+        handleSelectComp={handleSelectComp}
+        toggleCreateModal={toggleCreateModal}
+        handleCreateFolder={handleCreateFolder}
+      />
 
       <div className="min-h-[400px] max-h-[90dvh] overflow-y-auto p-3 flex flex-wrap gap-2 bg-white">
         {content?.map((file) => (
@@ -57,7 +64,15 @@ const Home = () => {
         <DeleteModal
           toggleDeleteModal={toggleDeleteModal}
           toggleLoading={toggleLoading}
-          fileId={selectedComp}
+          fileId={selectedComp?._id}
+          handleToggle={handleToggle}
+        />
+      )}
+      {openCreateModal && (
+        <CreateModal
+          toggleCreateModal={toggleCreateModal}
+          fileId={selectedComp?._id}
+          isFolder={createFolder}
           handleToggle={handleToggle}
         />
       )}

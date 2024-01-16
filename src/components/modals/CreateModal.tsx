@@ -11,14 +11,14 @@ import Loading from "../Loading";
 type Props = {
   fileId?: string | undefined;
   isFolder: boolean;
-  closeCreateModal: () => void;
+  toggleCreateModal: (val: boolean) => void;
   handleToggle: () => void;
 };
 
 const CreateModal = ({
   fileId,
   isFolder,
-  closeCreateModal,
+  toggleCreateModal,
   handleToggle,
 }: Props) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -49,7 +49,7 @@ const CreateModal = ({
   };
 
   const handleCancel = () => {
-    closeCreateModal();
+    toggleCreateModal(false);
     reset();
   };
 
@@ -67,7 +67,7 @@ const CreateModal = ({
           variants={modalVariants}
         >
           <div className="absolute top-5 right-5 z-20  rounded hover:bg-gray-200">
-            <button className="px-2" onClick={closeCreateModal}>
+            <button className="px-2" onClick={handleCancel}>
               X
             </button>
           </div>

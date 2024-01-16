@@ -6,7 +6,7 @@ import {
 import axios from "axios";
 
 type Props = {
-  fileId: string;
+  fileId: string | undefined;
   toggleDeleteModal: (val: boolean) => void;
   toggleLoading: (val: boolean) => void;
   handleToggle: () => void;

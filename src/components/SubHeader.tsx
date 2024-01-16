@@ -1,27 +1,29 @@
-"use client";
-
-import CreateModal from "@/components/modals/CreateModal";
 import Link from "next/link";
-import { useState } from "react";
 import { FaFolderPlus, FaFileMedical } from "react-icons/fa6";
 import { usePathname } from "next/navigation";
 
 type Props = {
   fileContent?: TFileData;
-  handleToggle: () => void;
+  handleSelectComp: (id: TFileData) => void;
+  toggleCreateModal: (val: boolean) => void;
+  handleCreateFolder: (val: boolean) => void;
 };
 
-const SubHeader = ({ fileContent, handleToggle }: Props) => {
-  const [openCreateModal, setOpenCreateModal] = useState(false);
-  const [createFolder, setCreateFolder] = useState(false);
+const SubHeader = ({
+  fileContent,
+  handleSelectComp,
+  toggleCreateModal,
+  handleCreateFolder,
+}: Props) => {
   const pathName = usePathname();
 
   const handleCreateFile = (isFolder: boolean) => {
-    setOpenCreateModal(true);
-    setCreateFolder(isFolder);
+    toggleCreateModal(true);
+    handleCreateFolder(isFolder);
+    if (fileContent) {
+      handleSelectComp(fileContent);
+    }
   };
-
-  const closeCreateModal = () => setOpenCreateModal(false);
 
   return (
     <>
@@ -65,15 +67,6 @@ const SubHeader = ({ fileContent, handleToggle }: Props) => {
           </button>
         </div>
       </div>
-
-      {openCreateModal && (
-        <CreateModal
-          closeCreateModal={closeCreateModal}
-          fileId={fileContent?._id}
-          isFolder={createFolder}
-          handleToggle={handleToggle}
-        />
-      )}
     </>
   );
 };
