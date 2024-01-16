@@ -2,12 +2,8 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import SubHeader from "@/components/SubHeader";
-import Comp from "@/components/Comp";
-import Loading from "@/components/Loading";
-import DeleteModal from "@/components/modals/DeleteModal";
-import CreateModal from "@/components/modals/CreateModal";
-import UpdateModal from "@/components/modals/UpdateModal";
+import { Comp, Loading, SubHeader } from "@/components";
+import { CreateModal, DeleteModal, UpdateModal } from "@/components/modals";
 
 const Home = () => {
   const [content, setContent] = useState<TFileData[]>();
@@ -34,7 +30,6 @@ const Home = () => {
   }, [toggle]);
 
   const handleToggle = () => setToggle((prev) => !prev);
-
   const handleSelectComp = (val: TFileData | undefined) => setSelectedComp(val);
   const handleCreateFolder = (val: boolean) => setCreateFolder(val);
   const toggleDeleteModal = (val: boolean) => setOpenDeleteModal(val);

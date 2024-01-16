@@ -1,14 +1,10 @@
 "use client";
 
-import Comp from "@/components/Comp";
-import Loading from "@/components/Loading";
-import SubHeader from "@/components/SubHeader";
-import CreateModal from "@/components/modals/CreateModal";
-import DeleteModal from "@/components/modals/DeleteModal";
-import UpdateModal from "@/components/modals/UpdateModal";
 import axios from "axios";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { Comp, Loading, SubHeader } from "@/components";
+import { CreateModal, DeleteModal, UpdateModal } from "@/components/modals";
 
 const Folder = () => {
   const [content, setContent] = useState<TFileData[]>();
