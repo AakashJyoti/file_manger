@@ -7,6 +7,7 @@ import Comp from "@/components/Comp";
 import Loading from "@/components/Loading";
 import DeleteModal from "@/components/modals/DeleteModal";
 import CreateModal from "@/components/modals/CreateModal";
+import UpdateModal from "@/components/modals/UpdateModal";
 
 const Home = () => {
   const [content, setContent] = useState<TFileData[]>();
@@ -15,6 +16,7 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openCreateModal, setOpenCreateModal] = useState(false);
+  const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [createFolder, setCreateFolder] = useState(false);
 
   useEffect(() => {
@@ -37,6 +39,7 @@ const Home = () => {
   const handleCreateFolder = (val: boolean) => setCreateFolder(val);
   const toggleDeleteModal = (val: boolean) => setOpenDeleteModal(val);
   const toggleCreateModal = (val: boolean) => setOpenCreateModal(val);
+  const toggleUpdateModal = (val: boolean) => setOpenUpdateModal(val);
   const toggleLoading = (val: boolean) => setIsLoading(val);
 
   return (
@@ -55,6 +58,7 @@ const Home = () => {
               handleSelectComp={handleSelectComp}
               selectedComp={selectedComp}
               toggleDeleteModal={toggleDeleteModal}
+              toggleUpdateModal={toggleUpdateModal}
             />
           </div>
         ))}
@@ -62,7 +66,7 @@ const Home = () => {
       {isLoading && <Loading />}
       {openDeleteModal && (
         <DeleteModal
-          toggleDeleteModal={toggleDeleteModal}
+          toggleModal={toggleDeleteModal}
           toggleLoading={toggleLoading}
           fileId={selectedComp?._id}
           handleToggle={handleToggle}
@@ -70,10 +74,19 @@ const Home = () => {
       )}
       {openCreateModal && (
         <CreateModal
-          toggleCreateModal={toggleCreateModal}
+          toggleModal={toggleCreateModal}
           fileId={selectedComp?._id}
           isFolder={createFolder}
           handleToggle={handleToggle}
+          toggleLoading={toggleLoading}
+        />
+      )}
+      {openUpdateModal && (
+        <UpdateModal
+          toggleModal={toggleUpdateModal}
+          selectedComp={selectedComp}
+          handleToggle={handleToggle}
+          toggleLoading={toggleLoading}
         />
       )}
     </>

@@ -8,9 +8,10 @@ import { FaPen } from "react-icons/fa6";
 
 type Props = {
   fileContent: TFileData;
-  handleSelectComp: (id: TFileData) => void;
   selectedComp: TFileData | undefined;
+  handleSelectComp: (id: TFileData) => void;
   toggleDeleteModal: (val: boolean) => void;
+  toggleUpdateModal: (val: boolean) => void;
 };
 
 const Comp = ({
@@ -18,6 +19,7 @@ const Comp = ({
   handleSelectComp,
   selectedComp,
   toggleDeleteModal,
+  toggleUpdateModal,
 }: Props) => {
   const router = useRouter();
   const [showOption, setShowOption] = useState(false);
@@ -68,7 +70,7 @@ const Comp = ({
           <button
             className="flex justify-center items-center rounded bg-blue-500 p-1 text-white"
             title="Edit"
-            onClick={() => toggleDeleteModal(true)}
+            onClick={() => toggleUpdateModal(true)}
           >
             <FaPen />
           </button>

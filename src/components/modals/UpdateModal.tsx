@@ -4,22 +4,20 @@ import axios from "axios";
 import {
   modalBackDropVariants,
   modalVariants,
-} from "../../animations/modal.animation";
+} from "@/animations/modal.animation";
 
 type TProps = {
-  fileId?: string;
-  isFolder: boolean;
+  selectedComp: TFileData | undefined;
   handleToggle: () => void;
   toggleModal: (val: boolean) => void;
   toggleLoading: (val: boolean) => void;
 };
 
-const CreateModal = ({
-  fileId,
-  isFolder,
-  toggleModal,
-  handleToggle,
+const UpdateModal = ({
   toggleLoading,
+  handleToggle,
+  toggleModal,
+  selectedComp,
 }: TProps) => {
   const {
     register,
@@ -33,10 +31,9 @@ const CreateModal = ({
       toggleLoading(true);
       let requestPackage = JSON.stringify({
         fileName: data.name,
-        isFolder: isFolder,
-        parentFolder: fileId,
+        _id: selectedComp?._id,
       });
-      await axios.post("api/file/createFile", requestPackage);
+      await axios.post("api/file/updateFile", requestPackage);
     } catch (error) {
       console.log(error);
     } finally {
@@ -69,7 +66,9 @@ const CreateModal = ({
               X
             </button>
           </div>
-          <p className="text-3xl">Create {isFolder ? "Folder" : "File"}</p>
+          <p className="text-3xl">
+            Update {selectedComp?.isFolder ? "Folder" : "File"}
+          </p>
           <form
             className="px-5 py-2 flex gap-2 flex-col"
             onSubmit={handleSubmit(handleFormSubmit)}
@@ -79,6 +78,7 @@ const CreateModal = ({
               type="text"
               className="border py-0.5 px-2 w-full rounded focus:outline-gray-500"
               placeholder="Enter folder Name"
+              defaultValue={selectedComp?.fileName}
               maxLength={12}
               autoFocus
               {...register("name", {
@@ -96,7 +96,7 @@ const CreateModal = ({
                 type="submit"
                 className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-500"
               >
-                Create
+                UPdate
               </button>
             </div>
           </form>
@@ -105,5 +105,4 @@ const CreateModal = ({
     </AnimatePresence>
   );
 };
-
-export default CreateModal;
+export default UpdateModal;

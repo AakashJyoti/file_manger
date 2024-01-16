@@ -4,9 +4,9 @@ import { usePathname } from "next/navigation";
 
 type Props = {
   fileContent?: TFileData;
-  handleSelectComp: (id: TFileData | undefined) => void;
   toggleCreateModal: (val: boolean) => void;
   handleCreateFolder: (val: boolean) => void;
+  handleSelectComp: (id: TFileData | undefined) => void;
 };
 
 const SubHeader = ({

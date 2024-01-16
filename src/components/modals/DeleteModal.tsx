@@ -1,19 +1,19 @@
 import { AnimatePresence, motion } from "framer-motion";
+import axios from "axios";
 import {
   modalBackDropVariants,
   modalVariants,
 } from "../../animations/modal.animation";
-import axios from "axios";
 
 type Props = {
   fileId: string | undefined;
-  toggleDeleteModal: (val: boolean) => void;
-  toggleLoading: (val: boolean) => void;
   handleToggle: () => void;
+  toggleModal: (val: boolean) => void;
+  toggleLoading: (val: boolean) => void;
 };
 
 const DeleteModal = ({
-  toggleDeleteModal,
+  toggleModal,
   fileId,
   toggleLoading,
   handleToggle,
@@ -27,7 +27,7 @@ const DeleteModal = ({
     } finally {
       toggleLoading(false);
       handleToggle();
-      toggleDeleteModal(false);
+      toggleModal(false);
     }
   };
 
@@ -45,14 +45,14 @@ const DeleteModal = ({
           variants={modalVariants}
         >
           <div className="absolute top-5 right-5 z-20  rounded hover:bg-gray-200">
-            <button className="px-2" onClick={() => toggleDeleteModal(false)}>
+            <button className="px-2" onClick={() => toggleModal(false)}>
               X
             </button>
           </div>
           <p className="text-3xl">Confirm Deletion</p>
           <div className="flex justify-evenly py-4">
             <button
-              onClick={() => toggleDeleteModal(false)}
+              onClick={() => toggleModal(false)}
               className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-500"
             >
               Cancel

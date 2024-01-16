@@ -5,6 +5,7 @@ import Loading from "@/components/Loading";
 import SubHeader from "@/components/SubHeader";
 import CreateModal from "@/components/modals/CreateModal";
 import DeleteModal from "@/components/modals/DeleteModal";
+import UpdateModal from "@/components/modals/UpdateModal";
 import axios from "axios";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -17,6 +18,7 @@ const Folder = () => {
   const [toggle, setToggle] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openCreateModal, setOpenCreateModal] = useState(false);
+  const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [createFolder, setCreateFolder] = useState(false);
 
   const params = useParams();
@@ -47,6 +49,7 @@ const Folder = () => {
   const handleToggle = () => setToggle((prev) => !prev);
   const toggleCreateModal = (val: boolean) => setOpenCreateModal(val);
   const toggleDeleteModal = (val: boolean) => setOpenDeleteModal(val);
+  const toggleUpdateModal = (val: boolean) => setOpenUpdateModal(val);
   const toggleLoading = (val: boolean) => setIsLoading(val);
 
   return (
@@ -66,6 +69,7 @@ const Folder = () => {
               handleSelectComp={handleSelectComp}
               selectedComp={selectedComp}
               toggleDeleteModal={toggleDeleteModal}
+              toggleUpdateModal={toggleUpdateModal}
             />
           </div>
         ))}
@@ -74,7 +78,7 @@ const Folder = () => {
       {isLoading && <Loading />}
       {openDeleteModal && (
         <DeleteModal
-          toggleDeleteModal={toggleDeleteModal}
+          toggleModal={toggleDeleteModal}
           toggleLoading={toggleLoading}
           fileId={selectedComp?._id}
           handleToggle={handleToggle}
@@ -82,10 +86,19 @@ const Folder = () => {
       )}
       {openCreateModal && (
         <CreateModal
-          toggleCreateModal={toggleCreateModal}
+          toggleModal={toggleCreateModal}
           fileId={selectedComp?._id}
           isFolder={createFolder}
           handleToggle={handleToggle}
+          toggleLoading={toggleLoading}
+        />
+      )}
+      {openUpdateModal && (
+        <UpdateModal
+          toggleModal={toggleUpdateModal}
+          selectedComp={selectedComp}
+          handleToggle={handleToggle}
+          toggleLoading={toggleLoading}
         />
       )}
     </>
