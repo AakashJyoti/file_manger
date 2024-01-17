@@ -55,7 +55,7 @@ const UpdateModal = ({ handleToggle, toggleModal, selectedComp }: TProps) => {
           exit="exit"
         >
           <motion.div
-            className="w-[400px] my-0 mx-auto p-5 rounded-lg bg-white relative"
+            className="w-[80dvw] lg:w-[400px] my-0 mx-auto p-5 rounded-lg bg-white relative"
             variants={modalVariants}
           >
             <div className="absolute top-5 right-5 z-20  rounded hover:bg-gray-200">
