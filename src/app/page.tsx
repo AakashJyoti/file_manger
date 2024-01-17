@@ -21,7 +21,10 @@ const Home = () => {
       try {
         setIsLoading(true);
         const { data } = await axios.get("/api/file/getFolderFiles");
-        setContent(data.data);
+        const sortedData = data.data.sort((a: TFileData, b: TFileData) =>
+          b.isFolder > a.isFolder ? 1 : -1
+        );
+        setContent(sortedData);
       } catch (error) {
         console.log(error);
         toast.error(`Server error please try again later`);

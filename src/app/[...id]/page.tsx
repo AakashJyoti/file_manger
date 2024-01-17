@@ -29,7 +29,10 @@ const Folder = () => {
           const allSubData = await axios.get(
             `/api/file/getFolderFiles?id=${id}`
           );
-          setContent(allSubData.data.data);
+          const sortedData = allSubData.data.data.sort(
+            (a: TFileData, b: TFileData) => (b.isFolder > a.isFolder ? 1 : -1)
+          );
+          setContent(sortedData);
           const currentData = await axios.get(`/api/file/getFolder?id=${id}`);
           setCurrentFolder(currentData.data.data);
         } catch (error) {
