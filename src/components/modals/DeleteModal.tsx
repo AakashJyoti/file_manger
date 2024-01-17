@@ -4,6 +4,7 @@ import {
   modalBackDropVariants,
   modalVariants,
 } from "../../animations/modal.animation";
+import toast from "react-hot-toast";
 
 type Props = {
   fileId: string | undefined;
@@ -22,8 +23,10 @@ const DeleteModal = ({
     try {
       toggleLoading(true);
       await axios.delete(`/api/file/deleteFile?id=${fileId}`);
+      toast.success(`Deleted Successful`);
     } catch (error) {
       console.log(error);
+      toast.success(`Deletion Error`);
     } finally {
       toggleLoading(false);
       handleToggle();

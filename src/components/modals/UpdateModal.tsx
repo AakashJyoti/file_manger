@@ -5,6 +5,7 @@ import {
   modalBackDropVariants,
   modalVariants,
 } from "@/animations/modal.animation";
+import toast from "react-hot-toast";
 
 type TProps = {
   selectedComp: TFileData | undefined;
@@ -34,8 +35,10 @@ const UpdateModal = ({
         _id: selectedComp?._id,
       });
       await axios.post("api/file/updateFile", requestPackage);
+      toast.success(`${selectedComp?.isFolder ? "Folder" : "File"} Updated`);
     } catch (error) {
       console.log(error);
+      toast.success(`Update Error`);
     } finally {
       toggleLoading(false);
       handleCancel();

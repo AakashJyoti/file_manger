@@ -5,6 +5,7 @@ import {
   modalBackDropVariants,
   modalVariants,
 } from "../../animations/modal.animation";
+import toast from "react-hot-toast";
 
 type TProps = {
   fileId?: string;
@@ -37,8 +38,10 @@ const CreateModal = ({
         parentFolder: fileId,
       });
       await axios.post("api/file/createFile", requestPackage);
+      toast.success(`${isFolder ? "Folder" : "File"} Created`);
     } catch (error) {
       console.log(error);
+      toast.error(`${isFolder ? "Folder" : "File"} create Error`);
     } finally {
       toggleLoading(false);
       handleCancel();
