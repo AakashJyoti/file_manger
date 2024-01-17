@@ -15,8 +15,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <main className="min-h-screen bg-gray-500 relative pt-10">
-          <div className="w-[1000px] border mx-auto rounded-lg overflow-hidden">
+        <main className="min-h-screen bg-gray-500 relative lg:pt-10">
+          <div className="w-screen lg:w-[1000px] border mx-auto rounded-lg overflow-hidden">
             <div className="flex justify-center items-center bg-white py-3 shadow-md">
               <p className="text-3xl font-semibold">Your Explorer</p>
             </div>

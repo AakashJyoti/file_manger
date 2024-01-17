@@ -47,17 +47,16 @@ const Home = () => {
         handleCreateFolder={handleCreateFolder}
       />
 
-      <div className="min-h-[400px] max-h-[90dvh] overflow-y-auto p-3 flex flex-wrap gap-2 bg-white">
+      <div className="h-screen lg:h-[400px] p-3 overflow-y-auto bg-white grid  lg:grid-cols-7 grid-cols-2">
         {content?.map((file) => (
-          <div key={file._id} className="h-[100%]">
-            <Comp
-              fileContent={file}
-              handleSelectComp={handleSelectComp}
-              selectedComp={selectedComp}
-              toggleDeleteModal={toggleDeleteModal}
-              toggleUpdateModal={toggleUpdateModal}
-            />
-          </div>
+          <Comp
+            key={file._id}
+            fileContent={file}
+            handleSelectComp={handleSelectComp}
+            selectedComp={selectedComp}
+            toggleDeleteModal={toggleDeleteModal}
+            toggleUpdateModal={toggleUpdateModal}
+          />
         ))}
       </div>
       {isLoading && <Loading />}

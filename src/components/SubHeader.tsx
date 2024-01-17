@@ -37,9 +37,9 @@ const SubHeader = ({
                   : "/"
               }
             >
-              <span className="hover:bg-gray-500 px-2 py-0.5 rounded">
-                &larr; Back
-              </span>
+              <p className="hover:bg-gray-500 px-2 py-0.5 rounded">
+                &larr; <span className="hidden lg:inline" >Back</span>
+              </p>
             </Link>
           )}
         </div>
@@ -54,14 +54,14 @@ const SubHeader = ({
             onClick={() => handleCreateFile(true)}
           >
             <FaFolderPlus />
-            <p>New Folder</p>
+            <p className="hidden lg:block">New Folder</p>
           </button>
           <button
             className="bg-white px-2 py-1 rounded flex gap-1 items-center hover:bg-slate-200"
             onClick={() => handleCreateFile(false)}
           >
             <FaFileMedical />
-            <p>New File</p>
+            <p className="hidden lg:block">New File</p>
           </button>
         </div>
       </div>
