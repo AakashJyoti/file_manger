@@ -45,7 +45,7 @@ const Comp = ({
     window.navigator.clipboard.writeText(
       `${window.location.origin}/${fileContent._id}`
     );
-    toast.success("Link copied!..")
+    toast.success("Link copied!..");
   }, [fileContent._id]);
 
   return (
@@ -82,13 +82,15 @@ const Comp = ({
           >
             <FaPen />
           </button>
-          <button
-            className="flex justify-center items-center rounded bg-green-500 p-1 text-white hover:bg-green-700 "
-            title="Share"
-            onClick={handleShare}
-          >
-            <FaShareNodes />
-          </button>
+          {fileContent.isFolder && (
+            <button
+              className="flex justify-center items-center rounded bg-green-500 p-1 text-white hover:bg-green-700 "
+              title="Share"
+              onClick={handleShare}
+            >
+              <FaShareNodes />
+            </button>
+          )}
         </div>
       )}
     </div>

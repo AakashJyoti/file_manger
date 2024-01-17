@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Comp, Loading, SubHeader } from "@/components";
 import { CreateModal, DeleteModal, UpdateModal } from "@/components/modals";
+import toast from "react-hot-toast";
 
 const Home = () => {
   const [content, setContent] = useState<TFileData[]>();
@@ -23,6 +24,7 @@ const Home = () => {
         setContent(data.data);
       } catch (error) {
         console.log(error);
+        toast.error(`Server error please try again later`);
       } finally {
         setIsLoading(false);
       }

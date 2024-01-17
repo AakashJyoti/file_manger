@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Comp, Loading, SubHeader } from "@/components";
 import { CreateModal, DeleteModal, UpdateModal } from "@/components/modals";
+import toast from "react-hot-toast";
 
 const Folder = () => {
   const [content, setContent] = useState<TFileData[]>();
@@ -33,6 +34,7 @@ const Folder = () => {
           setCurrentFolder(currentData.data.data);
         } catch (error) {
           console.log(error);
+          toast.error(`Server error please try again later`);
         } finally {
           setIsLoading(false);
         }
