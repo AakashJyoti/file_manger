@@ -86,7 +86,6 @@ const Home = () => {
           fileId={selectedComp?._id}
           isFolder={createFolder}
           handleToggle={handleToggle}
-          toggleLoading={toggleLoading}
         />
       )}
       {openUpdateModal && (
@@ -94,7 +93,6 @@ const Home = () => {
           toggleModal={toggleUpdateModal}
           selectedComp={selectedComp}
           handleToggle={handleToggle}
-          toggleLoading={toggleLoading}
         />
       )}
     </>

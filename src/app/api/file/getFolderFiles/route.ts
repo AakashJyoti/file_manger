@@ -15,10 +15,9 @@ export async function GET(req: NextRequest) {
     if (!id) {
       const files = await File.find({ parentFolder: null });
       return NextResponse.json({ success: true, data: files }, { status: 200 });
-    } else {
-      const files = await File.find({ parentFolder: id });
-      return NextResponse.json({ success: true, data: files }, { status: 200 });
     }
+    const files = await File.find({ parentFolder: id });
+    return NextResponse.json({ success: true, data: files }, { status: 200 });
   } catch (error: any) {
     return NextResponse.json(
       { success: false, error: error.message },

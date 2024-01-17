@@ -6,13 +6,13 @@ import {
   modalVariants,
 } from "../../animations/modal.animation";
 import toast from "react-hot-toast";
+import { Loading } from "..";
 
 type TProps = {
   fileId?: string;
   isFolder: boolean;
   handleToggle: () => void;
   toggleModal: (val: boolean) => void;
-  toggleLoading: (val: boolean) => void;
 };
 
 const CreateModal = ({
@@ -20,7 +20,6 @@ const CreateModal = ({
   isFolder,
   toggleModal,
   handleToggle,
-  toggleLoading,
 }: TProps) => {
   const {
     register,
@@ -31,7 +30,6 @@ const CreateModal = ({
 
   const handleFormSubmit = async (data: FieldValues) => {
     try {
-      toggleLoading(true);
       let requestPackage = JSON.stringify({
         fileName: data.name,
         isFolder: isFolder,
@@ -43,7 +41,6 @@ const CreateModal = ({
       console.log(error);
       toast.error(`${isFolder ? "Folder" : "File"} create Error`);
     } finally {
-      toggleLoading(false);
       handleCancel();
       handleToggle();
     }
@@ -55,57 +52,61 @@ const CreateModal = ({
   };
 
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        className="absolute top-0 right-0 w-full h-full z-10 bg-[rgba(0,0,0,0.86)]"
-        variants={modalBackDropVariants}
-        animate="final"
-        initial="initial"
-        exit="exit"
-      >
+    <>
+      <AnimatePresence mode="wait">
         <motion.div
-          className="w-[400px] my-0 mx-auto p-5 rounded-lg bg-white relative"
-          variants={modalVariants}
+          className="absolute top-0 right-0 w-full h-full z-10 bg-[rgba(0,0,0,0.86)]"
+          variants={modalBackDropVariants}
+          animate="final"
+          initial="initial"
+          exit="exit"
         >
-          <div className="absolute top-5 right-5 z-20  rounded hover:bg-gray-200">
-            <button className="px-2" onClick={handleCancel}>
-              X
-            </button>
-          </div>
-          <p className="text-3xl">Create {isFolder ? "Folder" : "File"}</p>
-          <form
-            className="px-5 py-2 flex gap-2 flex-col"
-            onSubmit={handleSubmit(handleFormSubmit)}
-            onReset={handleCancel}
+          <motion.div
+            className="w-[400px] my-0 mx-auto p-5 rounded-lg bg-white relative"
+            variants={modalVariants}
           >
-            <input
-              type="text"
-              className="border py-0.5 px-2 w-full rounded focus:outline-gray-500"
-              placeholder="Enter folder Name"
-              maxLength={12}
-              autoFocus
-              {...register("name", {
-                required: "Name field id required",
-              })}
-            />
-            <div className="flex justify-between">
-              <button
-                type="reset"
-                className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-500"
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-500"
-              >
-                Create
+            <div className="absolute top-5 right-5 z-20  rounded hover:bg-gray-200">
+              <button className="px-2" onClick={handleCancel}>
+                X
               </button>
             </div>
-          </form>
+            <p className="text-3xl">Create {isFolder ? "Folder" : "File"}</p>
+            <form
+              className="px-5 py-2 flex gap-2 flex-col"
+              onSubmit={handleSubmit(handleFormSubmit)}
+              onReset={handleCancel}
+            >
+              <input
+                type="text"
+                className="border py-0.5 px-2 w-full rounded focus:outline-gray-500"
+                placeholder="Enter folder Name"
+                maxLength={12}
+                autoFocus
+                {...register("name", {
+                  required: "Name field id required",
+                })}
+              />
+              <div className="flex justify-between">
+                <button
+                  type="reset"
+                  className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-500"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-500"
+                >
+                  Create
+                </button>
+              </div>
+            </form>
+          </motion.div>
         </motion.div>
-      </motion.div>
-    </AnimatePresence>
+      </AnimatePresence>
+
+      {isSubmitting && <Loading />}
+    </>
   );
 };
 
