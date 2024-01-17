@@ -59,19 +59,20 @@ const Folder = () => {
         handleCreateFolder={handleCreateFolder}
       />
 
-      <div className="h-screen lg:h-[400px] overflow-y-auto p-3 grid grid-cols-2 lg:grid-cols-7 gap-2 bg-white">
-        {content?.map((file) => (
-          <Comp
-            key={file._id}
-            fileContent={file}
-            handleSelectComp={handleSelectComp}
-            selectedComp={selectedComp}
-            toggleDeleteModal={toggleDeleteModal}
-            toggleUpdateModal={toggleUpdateModal}
-          />
-        ))}
+      <div className="h-screen lg:h-[400px] p-3 overflow-y-auto bg-white ">
+        <div className="grid grid-cols-2 lg:grid-cols-6 gap-2">
+          {content?.map((file) => (
+            <Comp
+              key={file._id}
+              fileContent={file}
+              handleSelectComp={handleSelectComp}
+              selectedComp={selectedComp}
+              toggleDeleteModal={toggleDeleteModal}
+              toggleUpdateModal={toggleUpdateModal}
+            />
+          ))}
+        </div>
       </div>
-
       {isLoading && <Loading />}
       {openDeleteModal && (
         <DeleteModal

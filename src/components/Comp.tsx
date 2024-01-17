@@ -50,7 +50,7 @@ const Comp = ({
 
   return (
     <div
-      className={`px-4 py-2 h-fit overflow-hidden flex justify-center items-center flex-col hover:bg-gray-200 rounded gap-1 cursor-pointer relative active:bg-gray-200 ${
+      className={`px-4 py-2 w-[140px] flex justify-center items-center flex-col hover:bg-gray-200 rounded gap-1 cursor-pointer relative active:bg-gray-200 ${
         selectedComp?._id === fileContent._id && "bg-gray-200"
       }`}
       onDoubleClick={handelOpenLink}
